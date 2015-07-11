@@ -14,6 +14,8 @@ function loadData() {
     $wikiElem.text("");
     $nytElem.text("");
 
+    $greeting.text("Is " + bgLocation + " where you want to live?")
+
     // load streetview
     $body.append('<img class="bgimg" src="https://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + bgLocation + '">');
     // YOUR CODE GOES HERE!
