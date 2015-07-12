@@ -9,7 +9,7 @@ function loadData() {
     var cityInput = $('#city').val();
     var bgLocation = streetInput + ', ' + cityInput;
     var streetViewURL = 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + bgLocation + '';
-    var nyTimesURL = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + bgLocation + '&sort=newest&api-key=';
+    var nyTimesURL = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + bgLocation + '&sort=newest&api-key=XXXXXXXXXX';
 
     // clear out old data before new request
     $wikiElem.text("");
@@ -22,6 +22,15 @@ function loadData() {
     //$body.append('<img class="bgimg" src="https://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + bgLocation + '">');
 
     $.getJSON(nyTimesURL, function(data) {
+        $nytElem.text('New York Times Articles About ' + bgLocation);
+
+        var articles = data.response.docs;
+        var articleLength = articles.length;
+        for (var i = 0; i < articleLength; i++){
+            var article = articles[i];
+            $nytElem.append('<li class="article">' + '<a href="' + article.web_url + '">'+ article.headline.main + '</a>' + '<p>' + article.snippet + '</p>' + '</li>');
+
+        };
         console.log(data);
         //console.log("http://api.nytimes.com/svc/search/v2/articlesearch.json?q='" + bgLocation + "'&fq=source:('The New York Times')&glocations.contains='" + bgLocation + "'&begin_date=2014101&end_date201507011&sort=newest&api-key=b2db8097cb8fbf02d5f3db8bf759b051:0:72487022");
     });
