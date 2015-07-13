@@ -10,7 +10,7 @@ function loadData() {
     var bgLocation = streetInput + ', ' + cityInput;
     var streetViewURL = 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + bgLocation + '';
     var nyTimesURL = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + bgLocation + '&sort=newest&api-key=';
-    var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' + bgLocation + '&limit=10&format=json&callback=?';
+    var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' + cityInput + '&limit=10&format=json&callback=?';
 
     // clear out old data before new request
     $wikiElem.text("");
@@ -44,9 +44,16 @@ function loadData() {
     //     }
     // });
     $.getJSON(wikiURL, function(data){
-        $wikiElem.text(bgLocation + ' Wikipedia Pages');
+        $wikiElem.text('Wikipedia Pages on ' + bgLocation);
 
         console.log(data);
+
+        var entries = Response[1]
+        console.log(entries);
+
+    })
+    .error(function(){
+        $wikiElem.text('Wikipedia Pages Could Not Be Loaded');
     });
 
 
