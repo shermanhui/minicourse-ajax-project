@@ -10,7 +10,7 @@ function loadData() {
     var cityInput = $('#city').val();
     var bgLocation = streetInput + ', ' + cityInput;
     var streetViewURL = 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + bgLocation + '';
-    var nyTimesURL = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + bgLocation + '&sort=newest&api-key=b2db8097cb8fbf02d5f3db8bf759b051:0:72487022';
+    var nyTimesURL = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + bgLocation + '&sort=newest&api-key=';
     var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' + cityInput + '&limit=10&format=json&callback=?';
 
     // clear out old data before new request
