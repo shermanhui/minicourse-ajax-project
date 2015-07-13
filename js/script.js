@@ -2,6 +2,7 @@ function loadData() {
 
     var $body = $('body');
     var $wikiElem = $('#wikipedia-links');
+    var $wikiElemHeader = $('#wikipedia-header');
     var $nytHeaderElem = $('#nytimes-header');
     var $nytElem = $('#nytimes-articles');
     var $greeting = $('#greeting');
@@ -9,7 +10,7 @@ function loadData() {
     var cityInput = $('#city').val();
     var bgLocation = streetInput + ', ' + cityInput;
     var streetViewURL = 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + bgLocation + '';
-    var nyTimesURL = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + bgLocation + '&sort=newest&api-key=';
+    var nyTimesURL = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + bgLocation + '&sort=newest&api-key=b2db8097cb8fbf02d5f3db8bf759b051:0:72487022';
     var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' + cityInput + '&limit=10&format=json&callback=?';
 
     // clear out old data before new request
@@ -23,7 +24,7 @@ function loadData() {
     //$body.append('<img class="bgimg" src="https://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + bgLocation + '">');
 
     $.getJSON(nyTimesURL, function(data) {
-        $nytElem.text('New York Times Articles About ' + bgLocation);
+        $nytHeaderElem.append(' About ' + bgLocation);
 
         var articles = data.response.docs;
         var articleLength = articles.length;
@@ -37,20 +38,40 @@ function loadData() {
         $nytElem.text('New York Times Article Could Not Be Loaded');
     });
 
+    // $.ajax Version with error handling //
+    // var wikiTimeOut = setTimeout(function(){
+    //     $wikiElem.text("Failed to retrieve wiki resources")
+    // }, 8000);
+
     // $.ajax(wikiURL, {
     //     dataType: "jsonp",
     //     success: function(data) {
-    //         console.log(data);
+    //         $wikiElemHeader.append(' on ' + cityInput);
+
+    //         var entries = data[1];
+    //         var entriesLength = data[1].length;
+    //         for (var i = 0; i < entriesLength; i++) {
+    //             wikiStr = entries[i];
+    //             var url = 'http://en.wikipedia.org/wiki/' + wikiStr;
+    //             $wikiElem.append('<ul><a href="' + url + '">' + wikiStr + '</a></ul>');
+    //         };
+
+    //         clearTimeout(wikiTimeOut);
     //     }
     // });
     $.getJSON(wikiURL, function(data){
-        $wikiElem.text('Wikipedia Pages on ' + bgLocation);
+        $wikiElemHeader.append(' on ' + cityInput);
 
-        console.log(data);
+        //console.log(data);
 
-        var entries = Response[1]
-        console.log(entries);
-
+        var entries = data[1];
+        var entriesLength = data[1].length;
+        for (var i = 0; i < entriesLength; i++) {
+            wikiStr = entries[i];
+            var url = 'http://en.wikipedia.org/wiki/' + wikiStr;
+            $wikiElem.append('<ul><a href="' + url + '">' + wikiStr + '</a></ul>');
+        };
+        //console.log(entries);
     })
     .error(function(){
         $wikiElem.text('Wikipedia Pages Could Not Be Loaded');
