@@ -39,43 +39,43 @@ function loadData() {
     });
 
     // $.ajax Version with error handling //
-    // var wikiTimeOut = setTimeout(function(){
-    //     $wikiElem.text("Failed to retrieve wiki resources")
-    // }, 8000);
+    var wikiTimeOut = setTimeout(function(){
+        $wikiElem.text("Failed to retrieve wiki resources")
+    }, 8000);
 
-    // $.ajax(wikiURL, {
-    //     dataType: "jsonp",
-    //     success: function(data) {
-    //         $wikiElemHeader.append(' on ' + cityInput);
+    $.ajax(wikiURL, {
+        dataType: "jsonp",
+        success: function(data) {
+            $wikiElemHeader.append(' on ' + cityInput);
 
-    //         var entries = data[1];
-    //         var entriesLength = data[1].length;
-    //         for (var i = 0; i < entriesLength; i++) {
-    //             wikiStr = entries[i];
-    //             var url = 'http://en.wikipedia.org/wiki/' + wikiStr;
-    //             $wikiElem.append('<ul><a href="' + url + '">' + wikiStr + '</a></ul>');
-    //         };
+            var entries = data[1];
+            var entriesLength = data[1].length;
+            for (var i = 0; i < entriesLength; i++) {
+                wikiStr = entries[i];
+                var url = 'http://en.wikipedia.org/wiki/' + wikiStr;
+                $wikiElem.append('<ul><a href="' + url + '">' + wikiStr + '</a></ul>');
+            };
 
-    //         clearTimeout(wikiTimeOut);
-    //     }
-    // });
-    $.getJSON(wikiURL, function(data){
-        $wikiElemHeader.append(' on ' + cityInput);
-
-        //console.log(data);
-
-        var entries = data[1];
-        var entriesLength = data[1].length;
-        for (var i = 0; i < entriesLength; i++) {
-            wikiStr = entries[i];
-            var url = 'http://en.wikipedia.org/wiki/' + wikiStr;
-            $wikiElem.append('<ul><a href="' + url + '">' + wikiStr + '</a></ul>');
-        };
-        //console.log(entries);
-    })
-    .error(function(){
-        $wikiElem.text('Wikipedia Pages Could Not Be Loaded');
+            clearTimeout(wikiTimeOut);
+        }
     });
+    // $.getJSON(wikiURL, function(data){
+    //     $wikiElemHeader.append(' on ' + cityInput);
+
+    //     //console.log(data);
+
+    //     var entries = data[1];
+    //     var entriesLength = data[1].length;
+    //     for (var i = 0; i < entriesLength; i++) {
+    //         wikiStr = entries[i];
+    //         var url = 'http://en.wikipedia.org/wiki/' + wikiStr;
+    //         $wikiElem.append('<ul><a href="' + url + '">' + wikiStr + '</a></ul>');
+    //     };
+    //     //console.log(entries);
+    // })
+    // .error(function(){
+    //     $wikiElemHeader.text('Wikipedia Pages Could Not Be Loaded');
+    // });
 
 
     return false;
