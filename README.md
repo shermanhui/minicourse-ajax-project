@@ -2,7 +2,6 @@
 --------
 The Move Planner App is a learning tool I used to experiment and learn about AJAX requests using jQuery's .getJSON and .ajax to make a useful webapp. The initial files used were downloaded from Udacity and is a part of their Frontend Developer Nanodegree course. 
 
-To see the webapp in action, clone the repository or download the zip file. 
 
 ## Features
 --------
